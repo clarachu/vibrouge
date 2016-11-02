@@ -3,6 +3,7 @@ package VIBClass;
 
 
 import java.sql.*;
+import java.util.Random;
 
 /**
  * Created by minnieliu on 2016-11-01.
@@ -28,15 +29,36 @@ public class Customer {
     }
 
 
-//addCustomer(name, phoneNumber){
-//// insert new customer into instance
-//        }
-//
-//
-//        Add in a new member (account#){
-//            //Add email address, password ….
-//        }
+    public boolean isMember(String name, int phoneNumber){
+        ResultSet rs = null;
+        String selectQuery = "SELECT * FROM member1 WHERE name =" + name +
+                            "AND phoneNumber =" + phoneNumber + ")";
 
+        rs = oraManager.query(selectQuery);
+        if (rs == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public int addMember(String email, String password, Date birthday, String name, int phoneNum){
+        // changed birthday from string to date
+        Random rand = new Random();
+        int accountNum = rand.nextInt(99999999);
+        int yearSpenttoDate = 0;
+        String insertQuery = "INSERT INTO member1 VALUES ("
+                + accountNum + ","
+                + yearSpenttoDate + ","
+                + email + ","
+                + password + ","
+                + birthday + ","
+                + name + ","
+                + phoneNum
+                + ")";
+     int rowCountInsertQuery =oraManager.execute(insertQuery);
+        return rowCountInsertQuery;
     }
 }
 
