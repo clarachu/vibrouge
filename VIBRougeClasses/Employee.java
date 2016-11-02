@@ -37,10 +37,10 @@ public class Employee {
     }
 
     public void addEmployee(int employeeID, String name) {
-        String insertQuery = "INSERT INTO employee VALUES (" + employeeID + "," + name + ")";
-
+       // String insertQuery = "INSERT INTO employee VALUES (" + employeeID + "," + name + ")";
+        String insertQuery = "INSERT INTO employee VALUES (19875,'It Works')";
         System.out.println(insertQuery);
-        oraManager.query(insertQuery);
+         oraManager.execute(insertQuery);
 
     }
 
@@ -77,6 +77,17 @@ public class Employee {
 
     public static void main(String argv[]) {
         Employee employee = new Employee();
-        employee.addEmployee(12345, "'IT WORKS'");
+        employee.addEmployee(93485, "'IT WORKS'");
+        System.out.println("FINISHES");
+   /*     try {
+            while (rs.next()) {
+                int employeeID = rs.getInt("employeeID");
+                String name = rs.getString("name");
+                System.out.println("EmployeeID: "+ employeeID + "Name: "+ name + "\n");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
     }
 }

@@ -45,31 +45,33 @@ public class OraManager {
         }
     }
 
-    public int execute(String stringForExecute){
-        int rowCount = -1;
+    public void execute(String stringForExecute){
+       // int rowCount = -1;
         try {
-            //System.out.println(targetTable + " before execution -->");
-            rowCount = stmt.executeUpdate(stringForExecute);
-            System.out.println("row " + rowCount + " updated");
+            stmt = conn.createStatement();
+            stmt.executeUpdate(stringForExecute);
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(stringForExecute + " : update fails");
         }
-        return rowCount;
+
     }
 
 
 
     public void query(String stringForQuery){
+       // ResultSet resultset = null;
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(stringForQuery);
-            System.out.println("U FINISHED QUERY");
+           stmt.executeQuery(stringForQuery);
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(stringForQuery + " : query fails");
         }
-        //return rs;
+       // return resultset;
     }
 
     public void disconnect(){
