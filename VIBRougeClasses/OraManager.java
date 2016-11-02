@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by minnieliu on 2016-11-01.
+ * Created by IvyLuo on 2016-11-01.
  */
 public class OraManager {
-    public java.sql.Connection con;
+    public java.sql.Connection conn;
     public Statement stmt;
 
     public OraManager() {}
@@ -27,12 +27,11 @@ public class OraManager {
             System.exit(-1);
         }
 
-        String connectURL = "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1522:ug";
         try{
             System.out.println("Connecting database...");
 
             String url = "jdbc:oracle:thin:@localhost:1522:ug";
-            java.sql.Connection conn = DriverManager.getConnection(url, "ora_m6v9a", "a31147144");
+            conn = DriverManager.getConnection(url, "ora_m6v9a", "a31147144");
             conn.setAutoCommit(true);
 
             System.out.println("Connect Successful");
@@ -61,23 +60,21 @@ public class OraManager {
 
 
 
-    public ResultSet query(String stringForQuery){
-        ResultSet rs = null;
-
-        if(stmt==null)
-            System.out.println("query is NULL");
+    public void query(String stringForQuery){
         try {
-            rs = stmt.executeQuery(stringForQuery);
+            stmt = conn.createStatement();
+            stmt.executeQuery(stringForQuery);
+            System.out.println("U FINISHED QUERY");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(stringForQuery + " : query fails");
         }
-        return rs;
+        //return rs;
     }
 
     public void disconnect(){
         try {
-            con.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("disconnect fails");
