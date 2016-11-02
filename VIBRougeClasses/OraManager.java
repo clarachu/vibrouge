@@ -60,18 +60,18 @@ public class OraManager {
 
 
 
-    public void query(String stringForQuery){
-       // ResultSet resultset = null;
+    public ResultSet query(String stringForQuery){
+        ResultSet resultset = null;
         try {
-            stmt = conn.createStatement();
-           stmt.executeQuery(stringForQuery);
+           stmt = conn.createStatement();
+           resultset = stmt.executeQuery(stringForQuery);
 
 
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(stringForQuery + " : query fails");
         }
-       // return resultset;
+        return resultset;
     }
 
     public void disconnect(){

@@ -21,36 +21,28 @@ public class Employee {
         oraManager.buildConnection();
     }
 
-    // java.sql.Connection con = Connection.getInstance().getConnection();
-
-    public int getEmployeeID() {
-        return employeeID;
-    }
-
     public boolean isEmployee(int employeeID) {
-        for (Employee e : employeelist) {
-            if (employeeID == e.getEmployeeID()) {
-                return true;
-            }
+        String query = "SELECT * FROM employee WHERE employeeID = " + employeeID;
+        ResultSet rs = oraManager.query(query);
+        Boolean result = null;
+        try {
+            result = rs.isBeforeFirst();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return false;
+        return result;
     }
 
     public void addEmployee(int employeeID, String name) {
-       // String insertQuery = "INSERT INTO employee VALUES (" + employeeID + "," + name + ")";
-        String insertQuery = "INSERT INTO employee VALUES (19875,'It Works')";
-        System.out.println(insertQuery);
-         oraManager.execute(insertQuery);
+        String insertQuery = "INSERT INTO employee VALUES (" + employeeID + "," + name + ")";
+
+        oraManager.execute(insertQuery);
 
     }
 
     //delete employee tuple that matches the employeeID
     public void removeEmployee(int employeeID) {
-        for (Employee e : employeelist) {
-            if (employeeID == e.getEmployeeID()) {
-                employeelist.remove(e);
-            }
-        }
+
     }
 
     //return the list of name of customer who has birthday this month
@@ -77,17 +69,14 @@ public class Employee {
 
     public static void main(String argv[]) {
         Employee employee = new Employee();
-        employee.addEmployee(93485, "'IT WORKS'");
-        System.out.println("FINISHES");
-   /*     try {
-            while (rs.next()) {
-                int employeeID = rs.getInt("employeeID");
-                String name = rs.getString("name");
-                System.out.println("EmployeeID: "+ employeeID + "Name: "+ name + "\n");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+
+        // Test add employee
+        // employee.addEmployee(93485, "'IT WORKS'");
+
+        // Test isEmployee
+//        System.out.println(employee.isEmployee(93485));
+//        System.out.println(employee.isEmployee(1298374));
+
 
     }
 }
